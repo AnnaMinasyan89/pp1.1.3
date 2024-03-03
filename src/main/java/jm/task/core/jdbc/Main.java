@@ -8,10 +8,9 @@ import org.postgresql.Driver;
 import java.sql.*;
 
 public class Main {
-
-    private final static UserService userService = new UserServiceImpl();
-
     public static void main(String[] args) throws SQLException {
+
+        UserService userService = new UserServiceImpl();
 
         userService.createUsersTable();
 

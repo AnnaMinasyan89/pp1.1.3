@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class Util {
+
     // реализуйте настройку соеденения с БД
     private static final String PASSWORD = "pass";
     private static final String USERNAME = "postgres";
@@ -31,20 +32,22 @@ public class Util {
             return DriverManager.getConnection(URL,USERNAME,PASSWORD);
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return null;
         }
     }
+
 
     private static void loadDriver() {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
 
-    private static SessionFactory sessionFactory;
+   public static SessionFactory sessionFactory;
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
@@ -65,7 +68,7 @@ public class Util {
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
-                    //получить объект SessionFactory, паттерн фабрика
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
